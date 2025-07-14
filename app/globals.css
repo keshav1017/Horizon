@@ -59,6 +59,26 @@ body {
   }
 }
 
+.bg-bank-gradient {
+  background: linear-gradient(90deg, #0179fe 0%, #4893ff 100%);
+}
+
+.font-inter {
+  font-family: var(--font-inter), sans-serif;
+}
+
+.font-ibm-plex-serif {
+  font-family: var(--font-ibm-plex-serif), serif;
+}
+
+.text-black-1 {
+  color: #00214f;
+}
+
+.text-black-2 {
+  color: #344054;
+}
+
 .sheet-content button {
   outline: none;
   border: none;
@@ -136,6 +156,10 @@ body {
 .text-36 {
   font-size: 36px;
   line-height: 44px;
+}
+
+.ml-5 {
+  margin-left: 1.25rem;
 }
 
 .home {
@@ -233,29 +257,43 @@ body {
 }
 
 .right-sidebar {
-  display: flex;
-  flex-direction: column;
+  display: none;
   height: 100vh;
   max-height: 100vh;
-  border-left: 1px solid #e5e7eb;
+  flex-direction: column;
+  border-left: 1px solid #e5e7eb; /* Tailwind's gray-200 */
   width: 355px;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow-y: hidden; /* Default, overridden later */
+}
+
+/* Scrollbar hidden for all browsers */
+.right-sidebar::-webkit-scrollbar {
+  display: none;
+}
+.right-sidebar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Responsive behavior for xl and up */
+@media (min-width: 1280px) {
+  .right-sidebar {
+    display: flex !important;
+    overflow-y: scroll !important;
+  }
 }
 
 .profile-banner {
   height: 120px;
   width: 100%;
+  background-image: url('/icons/gradient-mesh.svg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: var(--gradient-mesh);
 }
 
 .profile {
   position: relative;
   display: flex;
-  padding-left: 1.5rem;
   padding-right: 1.5rem;
   justify-content: center;
 }
@@ -266,6 +304,7 @@ body {
   align-items: center;
   position: absolute;
   top: -2rem;
+  left: 3.1rem;
   width: 6rem;
   height: 6rem;
   background-color: #f3f4f6;
@@ -276,6 +315,7 @@ body {
 }
 
 .profile-details {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding-top: 6rem;
@@ -298,7 +338,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   gap: 2rem;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1.5rem;
 }
 
 .my-banks {
@@ -383,46 +423,59 @@ body {
 .bank-card {
   position: relative;
   display: flex;
-  height: 190px;
+  height: 200px;
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   justify-content: space-between;
-  border-radius: 20px;
-  border: 1px solid #ffffff;
-  background: var(--bank-gradient);
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(6px);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0179fe 0%, #4893ff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bank-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 
 .bank-card_content {
   position: relative;
   z-index: 10;
   display: flex;
+  width: 100%;
   height: 100%;
   max-width: 228px;
   flex-direction: column;
   justify-content: space-between;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  background-color: #374151;
-  background: var(--bank-gradient);
-  padding: 1.25rem 1.25rem 1rem 1.25rem;
+  background-color: #374151; /* Tailwind's bg-gray-700 */
+  background-image: linear-gradient(135deg, #0179fe 0%, #4893ff 100%); /* replace with actual gradient or image path */
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 1.25rem 1.25rem 1rem 1.25rem; /* pt-5 pr-5 pb-4 pl-5 */
 }
 
 .bank-card_icon {
   display: flex;
+  width: 100%;
   height: 100%;
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
   align-items: flex-end;
+  justify-content: space-between;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  background: var(--bank-gradient);
+  background-image: linear-gradient(135deg, #0179fe 0%, #4893ff 100%); /* Replace with your actual path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 1.25rem 1.25rem 1.25rem 0;
+  padding-top: 1.25rem;   /* py-5 */
+  padding-bottom: 1.25rem;
+  padding-right: 1.25rem; /* pr-5 */
 }
 
 .bank-info {
@@ -456,22 +509,29 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.mobilenav-sheet {
-  display: flex;
-  height: calc(100vh - 72px);
-  flex-direction: column;
-  justify-content: space-between;
-  overflow-y: auto;
+.mobilenav-sheet_close {
+  display: flex; /* flex */
+  align-items: center; /* items-center */
+  gap: 0.75rem; /* gap-3 = 12px */
+  padding: 1rem; /* p-4 = 16px */
+  border-radius: 0.5rem; /* rounded-lg = 8px */
+  width: 100%; /* w-full */
 }
 
-.mobilenav-sheet_close {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  max-width: 15rem;
+.sheet-content {
+  border: none; /* border-none */
+  background-color: #fff; /* bg-white */
+  padding: 1.5rem; /* Add padding as needed (example: 16px = 1rem) */
+}
+
+.card-item {
+  display: flex; /* flex */
+  align-items: center; /* items-center */
+  gap: 0.75rem; /* gap-3 = 12px */
+  padding: 1rem; /* p-4 = 16px */
+  border-radius: 0.5rem; /* rounded-lg = 8px */
+  width: 100%; /* w-full */
+  max-width: 15rem; /* max-w-60 = 240px */
 }
 
 .plaidlink-primary {
@@ -628,12 +688,26 @@ body {
 
 /* ROOT LAYOUT */
 .root-layout {
-  display: flex;
-  height: 4rem;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* creditCard shadow */
+  display: flex; /* flex */
+  height: 4rem; /* h-16 = 64px */
+  align-items: center; /* items-center */
+  justify-content: space-between; /* justify-between */
+  padding: 1.25rem; /* p-5 = 20px */
+  box-shadow: 8px 10px 16px 0px rgba(0, 0, 0, 0.05); /* shadow-creditCard */
+}
+
+/* sm:p-8 → padding: 2rem for screens ≥ 640px */
+@media (min-width: 640px) {
+  .root-layout {
+    padding: 2rem;
+  }
+}
+
+/* md:hidden → hide on screens ≥ 768px */
+@media (min-width: 768px) {
+  .root-layout {
+    display: none;
+  }
 }
 
 /* BANK INFO */
@@ -657,7 +731,8 @@ body {
   padding-bottom: 1.5rem;
 }
 
-.footer_name, .footer_name-mobile {
+.footer_name,
+.footer_name-mobile {
   display: flex;
   width: 2.5rem;
   height: 2.5rem;
@@ -667,7 +742,8 @@ body {
   background-color: #e5e7eb; /* gray-200 */
 }
 
-.footer_email, .footer_email-mobile {
+.footer_email,
+.footer_email-mobile {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -686,38 +762,127 @@ body {
 /* SIDEBAR */
 .sidebar {
   position: sticky;
-  left: 0;
   top: 0;
+  left: 0;
   display: flex;
-  height: 100vh;
-  width: fit-content;
   flex-direction: column;
   justify-content: space-between;
-  border-right: 1px solid #e5e7eb; /* gray-200 */
-  background-color: white;
-  padding-top: 2rem;
-  color: white;
-  padding: 1rem;
+  height: 100vh;
+  width: fit-content;
+  border-right: 1px solid #eaecf0; /* Tailwind gray-200 */
+  background-color: #ffffff; /* Tailwind white */
+  padding-top: 2rem; /* pt-8 */
+  color: #ffffff; /* text-white */
+}
+
+.mobile-nav-logo {
+  cursor: pointer; /* cursor-pointer */
+  display: flex; /* flex */
+  align-items: start; /* items-center */
+  gap: 0.25rem; /* gap-1 = 4px */
+  margin-bottom: 2.5rem;
+}
+
+.sidebar-flex-logo {
+  margin-bottom: 3rem; /* mb-12 = 48px */
+  cursor: pointer; /* cursor-pointer */
+  display: flex; /* flex */
+  align-items: center; /* items-center = vertical center */
+  gap: 0.5rem;
+}
+
+/* Hide on small screens (max-md:hidden) */
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* sm:p-4 (≥ 640px) */
+@media (min-width: 640px) {
+  .sidebar {
+    padding: 1rem;
+  }
+}
+
+/* xl:p-6 (≥ 1280px) */
+@media (min-width: 1280px) {
+  .sidebar {
+    padding: 1.5rem;
+  }
+}
+
+/* 2xl:w-[355px] (≥ 1536px) */
+@media (min-width: 1536px) {
+  .sidebar {
+    width: 355px;
+  }
 }
 
 .sidebar-logo {
-  font-size: 26px;
-  font-family: 'IBM Plex Serif', serif;
-  font-weight: 700;
-  color: #111827; /* black-1 */
+  font-family: var(--font-ibm-plex-serif), serif;
+  font-size: 26px; /* text-[26px] and 2xl:text-26 */
+  font-weight: 700; /* font-bold */
+  color: #00214f; /* text-black-1 */
+}
+
+/* Hide on screen widths ≤ 1279px (max-xl:hidden) */
+@media (max-width: 1279px) {
+  .sidebar-logo {
+    display: none;
+  }
+}
+
+/* Optional: if you want to explicitly ensure font-size at ≥1536px */
+@media (min-width: 1536px) {
+  .sidebar-logo {
+    font-size: 26px; /* 2xl:text-26 — probably same as default here */
+  }
 }
 
 .sidebar-link {
   display: flex;
-  gap: 0.75rem;
+  flex-direction: row;
   align-items: center;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
   justify-content: center;
+  gap: 0.75rem; /* gap-3 = 12px */
+  padding-top: 0.25rem; /* py-1 = 4px */
+  padding-bottom: 0.25rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  border-radius: 0.5rem; /* rounded-lg = 8px */
+}
+
+/* md:p-3 = 12px padding on all sides */
+@media (min-width: 768px) {
+  .sidebar-link {
+    padding: 0.75rem;
+  }
+}
+
+/* 2xl:p-4 = 16px padding on all sides */
+@media (min-width: 1536px) {
+  .sidebar-link {
+    padding: 1rem;
+  }
+}
+
+/* xl:justify-start overrides center justification */
+@media (min-width: 1280px) {
+  .sidebar-link {
+    justify-content: flex-start;
+  }
 }
 
 .sidebar-label {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1f2937; /* black-2 */
+  font-size: 1rem; /* text-16 = 16px */
+  font-weight: 600; /* font-semibold */
+  color: #344054; /* text-black-2 */
+}
+
+/* Hide on screen widths ≤ 1279px (max-xl:hidden) */
+@media (max-width: 1279px) {
+  .sidebar-label {
+    display: none;
+  }
 }
