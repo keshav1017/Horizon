@@ -542,7 +542,7 @@ body {
   color: #ffffff;
   border-radius: 0.5rem;
   border: 1px solid;
-  background: linear-gradient(to right, #667eea, #764ba2);
+  background: #0179FE;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -580,7 +580,13 @@ body {
   top: 0;
   align-items: center;
   justify-content: flex-end;
-  background-color: #f0f9ff; /* sky-1 */
+  background-color: #F3F9FF; /* sky-1 */
+}
+
+@media (max-width: 1023px) {
+  .auth-asset {
+    display: none;
+  }
 }
 
 /* AUTH FORM */
