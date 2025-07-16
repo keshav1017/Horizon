@@ -77,17 +77,30 @@ export const topCategoryStyles = {
     icon: "/icons/coins.svg",
   },
   default: {
-    bg: "bg-pink-25",
-    circleBg: "bg-pink-100",
+    bg: "bg-blue-25",
+    circleBg: "bg-blue-100",
     text: {
-      main: "text-pink-900",
-      count: "text-pink-700",
+      main: "text-blue-900",
+      count: "text-blue-700",
     },
     progress: {
-      bg: "bg-pink-100",
-      indicator: "bg-pink-700",
+      bg: "bg-blue-100",
+      indicator: "bg-blue-700",
     },
-    icon: "/icons/shopping-bag.svg",
+    icon: "/icons/cash.svg",
+  },
+  Transfer: {
+    bg: "bg-green-25",
+    circleBg: "bg-green-100",
+    text: {
+      main: "text-green-900",
+      count: "text-green-700",
+    },
+    progress: {
+      bg: "bg-green-100",
+      indicator: "bg-green-700",
+    },
+    icon: "/icons/money-transfer.svg",
   },
 };
 
@@ -128,10 +141,16 @@ export const transactionCategoryStyles = {
     textColor: "text-[#027A48]",
     chipBackgroundColor: "bg-[#ECFDF3]",
   },
-  default: {
-    borderColor: "",
+  Travel: {
+    borderColor: "border-[#0047AB]",
     backgroundColor: "bg-blue-500",
     textColor: "text-blue-700",
-    chipBackgroundColor: "bg-inherit",
+    chipBackgroundColor: "bg-[#ECFDF3]",
+  },
+  default: {
+    borderColor: "border-[#F2F4F7]",
+    backgroundColor: "bg-blue-500",
+    textColor: "text-blue-700",
+    chipBackgroundColor: "bg-[#F2F4F7]",
   },
 };

@@ -233,7 +233,7 @@ declare interface RecentTransactionsProps {
 
 declare interface TransactionHistoryTableProps {
   transactions: Transaction[];
-  page: number;
+  page?: number;
 }
 
 declare interface CategoryBadgeProps {
